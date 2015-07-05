@@ -11,7 +11,7 @@ var less = require('gulp-less');
 var del = require('del');
 var coveralls = require('gulp-coveralls');
 var karma = require('karma').server;
-var browserSync = require('browser-sync');
+var browserSync = require('browser-sync').create();
 var wiredep = require('wiredep').stream;
 
 var DEV_DIR = './client/dev/';
@@ -127,7 +127,9 @@ gulp.task('build_temp', ['del_temp', 'partials:temp', 'views:temp', 'imgs:temp',
 
 gulp.task('watch', ['del_temp', 'bower', 'build_temp', 'browser_sync'], function()
 {
-  browserSync({proxy: "http://localhost:3333", reloadDelay: 1000});
+  browserSync.init({
+    proxy: "http://localhost:3333"
+  });
 
   var _watchable = [];
 
